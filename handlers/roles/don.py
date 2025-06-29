@@ -11,8 +11,14 @@ class Don:
 
 @dp.callback_query_handler(lambda c: c.data.startswith("don:"))
 async def handle_don_action(call: types.CallbackQuery):
-    _, target_id = call.data.split(":")
-    session = get_session(call.message.chat.id)
-    session["night_actions"]["don"] = int(target_id)
+    role_name, target_id, chat_id = call.data.split(":")
+    target_id = int(target_id)
+    chat_id = int(chat_id)
 
-    await call.message.edit_text("🕶 Siz Don sifatida tanlov qildingiz.")
+    session = get_session(chat_id)
+    session["night_actions"][role_name] = target_id
+
+    from utils.helpers import get_player_name
+    name = await get_player_name(call.bot, target_id)
+    await call.message.edit_text(f"🕶 Siz Don sifatida tanlov qildingiz: <b>{name}</b>", parse_mode="HTML")
+

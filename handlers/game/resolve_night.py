@@ -4,6 +4,8 @@ from utils.helpers import get_player_name
 from utils.misc.session import get_session
 
 async def resolve_night(chat_id: int):
+
+
     session = get_session(chat_id)
     actions = session.get("night_actions", {})
     alive = session["alive_players"]
@@ -77,6 +79,13 @@ async def resolve_night(chat_id: int):
             result = "🌑 Tunda o‘ldirilgan odam allaqachon o‘yindan chiqqan edi."
     else:
         result = "🌑 Tunda hech kim halok bo‘lmadi."
+
+    print(">>> [DEBUG] NIGHT ACTIONS:", actions)
+    print(">>> [DEBUG] BLOCKED by Mashuqa:", blocked)
+    print(">>> [DEBUG] ROLES:", {pid: role.name for pid, role in roles.items()})
+    print(">>> [DEBUG] Don:", don_target, "Qotil:", qotil_target, "Doctor:", doctor_target)
+    print(">>> [DEBUG] Killed:", killed, "Saved:", saved)
+    print(">>> [DEBUG] Final logs:", logs)
 
     logs.insert(0, result)
     return "\n".join(logs)

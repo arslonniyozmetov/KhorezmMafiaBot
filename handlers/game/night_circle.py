@@ -9,14 +9,16 @@ from handlers.game.resolve_night import resolve_night
 import asyncio
 from handlers.game.voting import start_day_phase
 
-async def generate_action_keyboard(role_name, players, exclude_id):
+# game/night_circle.py
+async def generate_action_keyboard(role_name, players, exclude_id, chat_id):
     kb = InlineKeyboardMarkup()
     for pid in players:
         if pid == exclude_id:
             continue
-        name = await get_player_name(bot, pid)  # ✅ BOT argumenti qo‘shildi
-        kb.add(InlineKeyboardButton(f"👤 {name}", callback_data=f"{role_name}:{pid}"))
+        name = await get_player_name(bot, pid)
+        kb.add(InlineKeyboardButton(f"👤 {name}", callback_data=f"{role_name}:{pid}:{chat_id}"))
     return kb
+
 
 async def start_night_phase(chat_id: int):
     session = get_session(chat_id)
@@ -34,7 +36,7 @@ async def start_night_phase(chat_id: int):
         if not role or not role.is_active:
             continue
 
-        kb = await generate_action_keyboard(role.name.lower(), players, player_id)  # ✅ SHU YERDA await QO‘SHILDI
+        kb = await generate_action_keyboard(role.name.lower(), players, player_id, chat_id) # ✅ SHU YERDA await QO‘SHILDI
         try:
             await send_pm(
                 player_id,
