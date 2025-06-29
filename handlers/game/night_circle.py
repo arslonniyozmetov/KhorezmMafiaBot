@@ -7,6 +7,7 @@ from handlers.roles.base import Role
 from data.config import ADMINS
 from handlers.game.resolve_night import resolve_night
 import asyncio
+from handlers.game.voting import start_day_phase
 
 async def generate_action_keyboard(role_name, players, exclude_id):
     kb = InlineKeyboardMarkup()
@@ -50,5 +51,7 @@ async def start_night_phase(chat_id: int):
     await asyncio.sleep(30)
 
     result = await resolve_night(chat_id)
+
     await bot.send_message(chat_id, result)
+    await start_day_phase(chat_id)
 
