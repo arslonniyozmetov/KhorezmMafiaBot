@@ -1,5 +1,5 @@
 # roles/kamikadze.py
-from base import Role
+from handlers.roles.base import Role
 
 class Kamikadze(Role):
     def __init__(self):

@@ -1,5 +1,5 @@
 # roles/qotil.py
-from .base import Role
+from handlers.roles.base import Role
 
 class Qotil(Role):
     def __init__(self):

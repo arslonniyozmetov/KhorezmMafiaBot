@@ -1,5 +1,5 @@
 # roles/doktor.py
-from base import Role
+from handlers.roles.base import Role
 
 class Doktor(Role):
     def __init__(self):

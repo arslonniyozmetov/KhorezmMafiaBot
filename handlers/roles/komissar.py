@@ -1,5 +1,5 @@
 # roles/komissar.py
-from base import Role
+from handlers.roles.base import Role
 
 class Komissar(Role):
     def __init__(self):

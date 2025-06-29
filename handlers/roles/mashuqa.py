@@ -1,5 +1,5 @@
 # roles/mashuqa.py
-from base import Role
+from handlers.roles.base import Role
 
 class Mashuqa(Role):
     def __init__(self):

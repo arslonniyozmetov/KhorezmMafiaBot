@@ -1,5 +1,5 @@
 # roles/daydi.py
-from base import Role
+from handlers.roles.base import Role
 
 class Daydi(Role):
     def __init__(self):
