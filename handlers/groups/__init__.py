@@ -1,6 +1,6 @@
-from .game import register_game_handlers
-from .vote import register_vote_handlers
-
-def register_group_handlers(dp):
-    register_game_handlers(dp)
-    register_vote_handlers(dp)
+# handlers/groups/__init__.py
+from . import game_commands
+from . import join
+from . import start_game
+from . import vote_handler
+from . import end_game

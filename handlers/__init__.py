@@ -1,8 +1,5 @@
-from .groups import register_group_handlers
-from .users import register_user_handlers
-# from .errors import register_error_handlers
-
-def register_all_handlers(dp):
-    register_user_handlers(dp)
-    register_group_handlers(dp)
-    # register_error_handlers(dp)
+from . import errors
+from . import users
+from . import groups
+from . import game
+from . import roles
