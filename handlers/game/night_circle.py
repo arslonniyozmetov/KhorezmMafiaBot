@@ -13,7 +13,7 @@ async def generate_action_keyboard(role_name, players, exclude_id):
     for pid in players:
         if pid == exclude_id:
             continue
-        name = await get_player_name(pid)
+        name = await get_player_name(bot, pid)  # ✅ BOT argumenti qo‘shildi
         kb.add(InlineKeyboardButton(f"👤 {name}", callback_data=f"{role_name}:{pid}"))
     return kb
 
@@ -33,7 +33,7 @@ async def start_night_phase(chat_id: int):
         if not role or not role.is_active:
             continue
 
-        kb = generate_action_keyboard(role.name.lower(), players, player_id)
+        kb = await generate_action_keyboard(role.name.lower(), players, player_id)  # ✅ SHU YERDA await QO‘SHILDI
         try:
             await send_pm(
                 player_id,
@@ -41,9 +41,14 @@ async def start_night_phase(chat_id: int):
                 reply_markup=kb
             )
         except:
-            await bot.send_message(ADMINS[0], f"⚠️ <a href='tg://user?id={player_id}'>PM yuborilmadi</a>", parse_mode="HTML")
+            await bot.send_message(
+                ADMINS[0],
+                f"⚠️ <a href='tg://user?id={player_id}'>PM yuborilmadi</a>",
+                parse_mode="HTML"
+            )
 
     await asyncio.sleep(30)
 
     result = await resolve_night(chat_id)
     await bot.send_message(chat_id, result)
+
